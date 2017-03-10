@@ -1,0 +1,88 @@
+body {
+	background: black;
+	color: white;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	font-weight: 300;
+}
+
+.top-section {
+	margin: 2em auto;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.bottom-section {
+	position: absolute;
+	width: 100%;
+	bottom: 2em;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.center {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.left {
+	position: relative;
+	left: 50px;
+	text-align: left;
+}
+
+.right {
+	position: relative;
+	right: 50px;
+	text-align: right;
+}
+
+#time {
+	font-size: 2.5vw;
+}
+
+#date {
+	font-size: 1.2vw;
+}
+
+.current-temp-container {
+	font-size: 2.5vw;
+}
+
+#weather-desc {
+	font-size: 1.5vw;
+}
+
+.wind-container {
+	font-size: 1.5vw;
+	margin-bottom: 1em;
+}
+
+.forecast-container {
+	width: auto;
+	float: right;
+}
+
+.day-name-short {
+	font-size: 1.5vw;
+	padding-right: 0.3em;
+	text-align: left;
+}
+
+.forecast-icon {
+	font-size: 1.5vw;
+	padding-left: 0.3em;
+}
+
+.next-3h {
+	font-size: 1.5vw;
+	padding-right: 0.3em;
+	text-align: left;
+}
+
+.next-3h-temp {
+	font-size: 1.5vw;
+}
+
+.event-desc {
+	padding-left: 0.6em;
+}
