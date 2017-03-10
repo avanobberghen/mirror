@@ -29,7 +29,7 @@ $(document).ready(function(){
  * Randomise the display language every 5 minutes
  */
  function randLang() {
-  var langOptions = ['en', 'fr', 'sw'];
+  //var langOptions = ['en', 'fr', 'sw'];
   language = langOptions[Math.floor(Math.random() * langOptions.length)];
   t=setTimeout('randLang()', 60000 * 5);
 }
@@ -54,8 +54,8 @@ var today;
 }
 
 // openWeatherMap ID
-var cityId=your city ID; 
-var OWMAppId='your openWeatherMap ID';
+//var cityId=your city ID; 
+//var OWMAppId='your openWeatherMap ID';
 
 /**
  * Call the openweathermap weather API every 5 minutes
@@ -141,8 +141,8 @@ var OWMAppId='your openWeatherMap ID';
 
 // Global variables, the values come from the Developer Console
 // Put your OWN clientID and apiKey
-var clientId = 'your client ID';
-var apiKey = 'your API ID';
+//var clientId = 'your client ID';
+//var apiKey = 'your API ID';
 var scopes = 'https://www.googleapis.com/auth/calendar.readonly';
 
 
