@@ -1,3 +1,11 @@
+/**
+ * @Author: Alexandre Vanobberghen <avanobberghen>
+ * @Date:   11-Mar-2018
+ * @Last modified by:   avanobberghen
+ * @Last modified time: 12-Mar-2018
+ */
+
+
 // Set language
 var language;
 
@@ -21,7 +29,7 @@ $(document).ready(function(){
   startTime();
   getCurrentWeather();
   t1=setTimeout('getDailyForecast()', 500); //timeout to work around the error: the server responded with a status of 429 (OK)
-  t2=setTimeout('getHourlyForecast()', 1000); 
+  t2=setTimeout('getHourlyForecast()', 1000);
 
 });
 
@@ -54,7 +62,7 @@ var today;
 }
 
 // openWeatherMap ID
-//var cityId=your city ID; 
+//var cityId=your city ID;
 //var OWMAppId='your openWeatherMap ID';
 
 /**
@@ -75,8 +83,8 @@ var today;
 /**
  * Call the openweathermap forecast API every 5 minutes
  * and retrieve the daily weather forecast
- */  
- function getDailyForecast(){  
+ */
+ function getDailyForecast(){
   // Set the locale
   moment.locale(language);
   $.getJSON("http://api.openweathermap.org/data/2.5/forecast/daily?id="+cityId+"&APPID="+OWMAppId+"&units=metric&lang="+language,function(data){
@@ -156,7 +164,7 @@ function handleClientLoad() {
 /* API function to check whether the app is authorized. */
 function checkAuth() {
   console.log("Inside checkAuth ...");
-  gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, 
+  gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true},
     handleAuthResult);
 }
 
@@ -176,12 +184,12 @@ function handleAuthResult(authResult) {
 
       /* Event handler that deals with clicking on the Authorize button.*/
       function handleAuthClick(event) {
-        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, 
+        gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false},
           handleAuthResult);
         return false;
       }
 
-      /* End of code from http://cs.wellesley.edu/~mashups/pages/am4calendar.html */  
+      /* End of code from http://cs.wellesley.edu/~mashups/pages/am4calendar.html */
 
 
 /**
