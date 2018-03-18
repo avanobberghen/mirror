@@ -1,0 +1,175 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Magic Mirror documentation &#8212; MagicMirror  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="magic-mirror-documentation">
+<h1>Magic Mirror documentation<a class="headerlink" href="#magic-mirror-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="running-the-code-on-a-raspberry-pi">
+<h1>Running the code on a Raspberry Pi<a class="headerlink" href="#running-the-code-on-a-raspberry-pi" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>Install the following on the Raspberry Pi:<ul>
+<li>Flask webserver (sudo pip install flask)</li>
+<li>Chromium web browser</li>
+</ul>
+</li>
+<li>In the app.js, set your credentials to retrieve weather and calendar
+information:<ul>
+<li>var cityId=your site ID; //<a class="reference external" href="http://openweathermap.org/find">http://openweathermap.org/find</a></li>
+<li>var OWMAppId=‘your openWeatherMap app ID’;</li>
+<li>var CLIENT_ID = ‘your google API client ID’;</li>
+</ul>
+</li>
+<li>Languages can be changed in app.js (assuming they are supported)
+here:<ul>
+<li>var langOptions = [‘en’, ‘fr’, ‘sw’];</li>
+</ul>
+</li>
+<li>Autostart the web application, the motion detection script and
+chromium in kiosk mode by editing
+~/.config/lxsession/LXDE-pi/autostart as follows:</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@lxpanel</span> <span class="o">--</span><span class="n">profile</span> <span class="n">LXDE</span><span class="o">-</span><span class="n">pi</span>
+<span class="nd">@pcmanfm</span> <span class="o">--</span><span class="n">desktop</span> <span class="o">--</span><span class="n">profile</span> <span class="n">LXDE</span><span class="o">-</span><span class="n">pi</span>
+<span class="nd">@xscreensaver</span> <span class="o">-</span><span class="n">no</span><span class="o">-</span><span class="n">splash</span>
+
+<span class="nd">@xset</span> <span class="n">s</span> <span class="n">off</span>
+<span class="nd">@xset</span> <span class="o">-</span><span class="n">dpms</span>
+<span class="nd">@xset</span> <span class="n">s</span> <span class="n">noblank</span>
+<span class="nd">@sudo</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">Programming</span><span class="o">/</span><span class="n">mirror</span><span class="o">/</span><span class="n">motion</span><span class="o">/</span><span class="n">motion</span><span class="o">.</span><span class="n">py</span>
+<span class="nd">@sudo</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">pi</span><span class="o">/</span><span class="n">Programming</span><span class="o">/</span><span class="n">mirror</span><span class="o">/</span><span class="n">webapp</span><span class="o">/</span><span class="n">app</span><span class="o">.</span><span class="n">py</span>
+<span class="nd">@sed</span> <span class="o">-</span><span class="n">i</span> <span class="s1">&#39;s/&quot;exited_cleanly&quot;: false/&quot;exited_cleanly&quot;: true/&#39;</span> <span class="o">~/.</span><span class="n">config</span><span class="o">/</span><span class="n">chromium</span><span class="o">/</span><span class="n">Default</span><span class="o">/</span><span class="n">Preferences</span>
+<span class="nd">@sed</span> <span class="o">-</span><span class="n">i</span> <span class="s1">&#39;s/&quot;exit_type&quot;: &quot;Crashed&quot;/&quot;exit_type&quot;: &quot;None&quot;/&#39;</span> <span class="o">~/.</span><span class="n">config</span><span class="o">/</span><span class="n">chromium</span><span class="o">/</span><span class="n">Default</span><span class="o">/</span><span class="n">Preferences</span>
+<span class="nd">@chromium</span><span class="o">-</span><span class="n">browser</span> <span class="o">--</span><span class="n">noerrdialogs</span> <span class="o">--</span><span class="n">kiosk</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">5000</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">first</span><span class="o">-</span><span class="n">run</span> <span class="o">--</span><span class="n">touch</span><span class="o">-</span><span class="n">events</span><span class="o">=</span><span class="n">enabled</span> <span class="o">--</span><span class="n">fast</span> <span class="o">--</span><span class="n">fast</span><span class="o">-</span><span class="n">start</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">popup</span><span class="o">-</span><span class="n">blocking</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">infobars</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">session</span><span class="o">-</span><span class="n">crashed</span><span class="o">-</span><span class="n">bubble</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">tab</span><span class="o">-</span><span class="n">switcher</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">translate</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">Get more info here to enable the Google calendar API if you wish to
+use it:</p>
+<p><a class="reference external" href="https://developers.google.com/google-apps/calendar/quickstart/js#step_1_enable_the_api_name">https://developers.google.com/google-apps/calendar/quickstart/js#step_1_enable_the_api_name</a></p>
+</li>
+</ul>
+</div>
+<div class="section" id="operations">
+<h1>Operations<a class="headerlink" href="#operations" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><p class="first">If for some reason you get logged off Google, you’ll need to
+authenticate again for which you’ll need to interact with your Pi’s
+GUI. This can be challenging if you don’t have a mouse or keyboard
+connected to it.</p>
+<ul class="simple">
+<li>Install xrpd on the Pi</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">xrdp</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Edit ~/.config/lxsession/LXDE-pi/autostart and comment the
+following line (that’s because Chromium only opens in one session
+at a time):</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@chromium</span><span class="o">-</span><span class="n">browser</span> <span class="o">--</span><span class="n">noerrdialogs</span> <span class="o">--</span><span class="n">kiosk</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">5000</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">first</span><span class="o">-</span><span class="n">run</span> <span class="o">--</span><span class="n">touch</span><span class="o">-</span><span class="n">events</span><span class="o">=</span><span class="n">enabled</span> <span class="o">--</span><span class="n">fast</span> <span class="o">--</span><span class="n">fast</span><span class="o">-</span><span class="n">start</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">popup</span><span class="o">-</span><span class="n">blocking</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">infobars</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">session</span><span class="o">-</span><span class="n">crashed</span><span class="o">-</span><span class="n">bubble</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">tab</span><span class="o">-</span><span class="n">switcher</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">translate</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Reboot the Pi</li>
+<li>From a computer on the same LAN, Remote connect to the Pi’s IP</li>
+<li>Enter your user credentials (the keyboard layout can be different)</li>
+<li>Open Chromium and go to localhost:5000</li>
+<li>Click the login button and enter your google credentials</li>
+<li>Log out the remote session</li>
+<li>Uncomment the above line in ~/.config/lxsession/LXDE-pi/autostart
+and reboot</li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Magic Mirror documentation</a></li>
+<li><a class="reference internal" href="#running-the-code-on-a-raspberry-pi">Running the code on a Raspberry Pi</a></li>
+<li><a class="reference internal" href="#operations">Operations</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Alexandre Vanobberghen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
