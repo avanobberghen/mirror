@@ -28,10 +28,10 @@ def main():
         time.sleep(.1)
  
 def turn_on():
-    subprocess.call("sh /home/pi/Programming/mirror/motion/monitor_on.sh", shell=True)
+    subprocess.call('vcgencmd display_power 1', shell=True)
  
 def turn_off():
-    subprocess.call("sh /home/pi/Programming/mirror/motion/monitor_off.sh", shell=True)
+    subprocess.call('vcgencmd display_power 0', shell=True)
  
 if __name__ == '__main__':
     try:
